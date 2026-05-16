@@ -1,0 +1,119 @@
+{
+  "info": {
+    "name": "CommerceApplication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for CommerceApplication endpoints"
+  },
+  "item": [
+    {
+      "name": "Create Cart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/carts",
+          "host": ["{{baseUrl}}"],
+          "path": ["carts"]
+        }
+      }
+    },
+    {
+      "name": "Get Cart",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/carts/{{cartId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["carts","{{cartId}}"]
+        }
+      }
+    },
+    {
+      "name": "Add Cart Item",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": \"sku-123\",\n  \"quantity\": 2,\n  \"price\": 15.00\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/carts/{{cartId}}/items",
+          "host": ["{{baseUrl}}"],
+          "path": ["carts","{{cartId}}","items"]
+        }
+      }
+    },
+    {
+      "name": "Checkout Cart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/carts/{{cartId}}/checkout",
+          "host": ["{{baseUrl}}"],
+          "path": ["carts","{{cartId}}","checkout"]
+        }
+      }
+    },
+    {
+      "name": "Get Order",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders","{{orderId}}"]
+        }
+      }
+    },
+    {
+      "name": "Start Payment",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/payment/start",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders","{{orderId}}","payment","start"]
+        }
+      }
+    },
+    {
+      "name": "Payment Webhook",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"providerPaymentId\": \"{{providerPaymentId}}\",\n  \"result\": \"CONFIRMED\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/payments/webhook",
+          "host": ["{{baseUrl}}"],
+          "path": ["payments","webhook"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "cartId",
+      "value": ""
+    },
+    {
+      "key": "orderId",
+      "value": ""
+    },
+    {
+      "key": "providerPaymentId",
+      "value": ""
+    }
+  ]
+}
