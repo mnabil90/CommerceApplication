@@ -38,7 +38,7 @@ public class Order {
     private String cartId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(255)")
     private OrderStatus status;
 
     @Column(nullable = false, precision = 19, scale = 4)

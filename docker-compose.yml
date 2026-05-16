@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - '5430:5432'
+    expose:
+      - 5430
+    environment:
+      POSTGRES_DB: ecommercedb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_HOST_AUTH_METHOD: md5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - '8080:8080'
+    expose:
+      - 8080
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=ecommercedb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin123
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

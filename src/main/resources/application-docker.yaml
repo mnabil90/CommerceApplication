@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:db}:${POSTGRES_PORT:5432}/${POSTGRES_DB:ecommercedb}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:admin123}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8080
+
+# Keep mock provider pointing to local app webhook
+mock:
+  provider:
+    webhook-url: http://localhost:8080/payments/webhook

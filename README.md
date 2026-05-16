@@ -91,3 +91,34 @@ Use `{{baseUrl}}` with value `http://localhost:8080` when importing.
 - The mock provider is simulated in-process; webhook delivery is handled via the `/payments/webhook` endpoint.
 - Carts are locked at checkout to prevent modifications after order creation.
 - A single pending payment attempt is allowed per order.
+
+## Running with Docker (Postgres)
+
+The repository includes a `Dockerfile` and `docker-compose.yml` to run the application together with a Postgres database.
+
+Build and start services:
+
+```powershell
+docker compose up --build
+```
+
+This will:
+- Start a Postgres database populated with `POSTGRES_DB=ecommercedb`.
+- Build and run the Spring Boot application with the `docker` Spring profile enabled.
+
+The app uses `src/main/resources/application-docker.yaml` when the `docker` profile is active and reads database connection parameters from environment variables.
+
+Environment variables set by `docker-compose.yml`:
+- `POSTGRES_HOST` (service name: `db`)
+- `POSTGRES_PORT` (5432)
+- `POSTGRES_DB` (ecommercedb)
+- `POSTGRES_USER` (postgres)
+- `POSTGRES_PASSWORD` (postgres)
+
+When connecting from your host, Postgres is available on port `5430`.
+
+To stop and remove containers and volumes:
+
+```powershell
+docker compose down -v
+```

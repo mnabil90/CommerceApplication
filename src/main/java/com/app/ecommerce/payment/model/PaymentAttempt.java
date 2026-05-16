@@ -51,7 +51,7 @@ public class PaymentAttempt {
     private String providerPaymentId;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(255)")
     private PaymentAttemptStatus status;
 
     @Column(nullable = false, precision = 19, scale = 4)
